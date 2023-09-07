@@ -22,3 +22,7 @@ group by GroupName
 --Check attributes??
 --Create a new event with updated protocol/attributes and compare
 
+Select ListItem, Description,List from typeList
+where List = 'PROTOCOL' OR List = 'SURVEY'
+order by ListItem
+
