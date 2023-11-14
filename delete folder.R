@@ -68,7 +68,7 @@ where PK_Site = ",delete_these$PK_Site[i])
   }
 }
 
-delete_admin_folder(admin_folder_name = "Minidoka Ranger District")
+delete_admin_folder(admin_folder_name = "d")
 
 
 ## clean up database

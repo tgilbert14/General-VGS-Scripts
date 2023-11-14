@@ -27,7 +27,9 @@ create_schema <- function(Region) {
 # read in shape file
 # shapefile <- rgdal::readOGR(dsn="D:/VGS - Deathstar II/GIS II/S_USA.Allotment", "S_USA.Allotment")
 # allotment<- as.data.frame(shapefile)
-shapefile<- rgdal::readOGR(dsn="D:/VGS - Deathstar II/GIS II/S_USA.Pasture", "S_USA.Pasture")
+
+#shapefile<- rgdal::readOGR(dsn="D:/VGS - Deathstar II/GIS II/S_USA.Pasture", "S_USA.Pasture")
+shapefile<- rgdal::readOGR(dsn="E:/VGS - Deathstar II/GIS II/S_USA.Pasture", "S_USA.Pasture")
 pasture<- as.data.frame(shapefile)
 
 ## must have acres to be created - but keeping closed pastures for now
@@ -102,9 +104,7 @@ while (i < length(replacements_p)+1) {
 ## ---------------
 
 View(pasture_data)
-View(p)
-
-
+#View(p)
 
 ## In progress --->
 x=1
@@ -116,6 +116,9 @@ temp<- pasture_data %>%
   select(ADMIN_ORG_, RD_Number)
 RDs<- unique(temp)
 View(RDs)
+
+
+
 
 
 ## RD first ->
