@@ -1,4 +1,16 @@
-﻿-- Use to delete unassigned sample data
+﻿--delete all syncable folder links
+--delete from SiteClassLink
+where PK_SiteClassLink IN (
+select PK_SiteClassLink from SiteClassLink
+where SyncState = 0)
+
+--delete all local folder links
+--delete from SiteClassLink
+--where PK_SiteClassLink IN (
+--select PK_SiteClassLink from SiteClassLink
+--where SyncState = 1)
+
+-- Use to delete unassigned sample data
 delete from sample
 --select * from sample
 where PK_Sample NOT IN (
@@ -93,7 +105,22 @@ where PK_Contact NOT IN (
 select DISTINCT PK_Contact from Contact
 RIGHT JOIN ContactLink on ContactLink.FK_Contact = Contact.PK_Contact)
 
+
+--OPTIONAL--
+--delete folders (non-root) that ARE SYNCABLE !!
+--Delete from SiteClass
+Select ClassName from SiteClass
+Where PK_SiteClass IN (
+  select DISTINCT PK_SiteClass from siteClass
+  left join siteClassLink on SiteClassLink.FK_SiteClass = SiteClass.PK_SiteClass
+  where SiteClass.SyncState = 0
+  and Ck_ParentClass IN (
+      select Pk_SiteClass from SiteClass)
+)
+
 delete from tombstone
+
+
 
 
 
@@ -103,7 +130,14 @@ LEFT JOIN ContactLink ON Contact.PK_Contact = ContactLink.FK_Contact
 GROUP BY ContactLink.FK_Contact, Contact.FamilyName, Contact.GivenName
 ORDER BY Contact.FamilyName
 
+SELECT ContactLink.FK_Contact, Contact.FamilyName, Contact.GivenName, Count(*) FROM Contact
+INNER JOIN ContactLink ON Contact.PK_Contact = ContactLink.FK_Contact
+GROUP BY ContactLink.FK_Contact, Contact.FamilyName, Contact.GivenName
+ORDER BY Contact.FamilyName
+
+
 --// Use this to change a contact's GUID
 UPDATE ContactLink
-SET FK_Contact = X'0edf643dfdefe94ea50c80e92db46b3f'
-WHERE FK_Contact = X'5add9f59d36b2c4897d619c08bcaff18'
+SET FK_Contact = X'87aa380af7302e4a9aeca4224b391d72'
+WHERE FK_Contact = X'1783d3cd49bc0046a01814bc96247506'
+

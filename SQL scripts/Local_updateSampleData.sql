@@ -75,6 +75,7 @@ SELECT DISTINCT * from Protocol
   INNER JOIN Sample ON Sample.FK_Event = Event.PK_Event
   INNER JOIN Species ON Species.PK_Species = Sample.FK_Species
   INNER JOIN Site ON Site.PK_Site = Event.FK_Site
+  --where PK_Species = 'G_UGVT7LJNOI'
   WHERE SiteID LIKE '%03-04-07-00083-018-C6%' 
   AND Protocol.Date LIKE '%2020%'
   AND EventName LIKE '%Freq%'

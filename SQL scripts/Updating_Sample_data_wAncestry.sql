@@ -107,3 +107,57 @@ INNER JOIN AncestryCombinedPath ON AncestryCombinedPath.PK_Site = Site.PK_Site
 	WHERE Ancestry LIKE '%TAMU%'
 	AND EventName = 'foliar cover'
 )
+
+Select * from protocol
+INNER JOIN EventGroup ON EventGroup.FK_Protocol = Protocol.PK_Protocol
+INNER JOIN Event ON Event.FK_EventGroup = EventGroup.PK_EventGroup
+inner join sample on Event.PK_Event = sample.FK_Event
+where PK_Protocol = '8514122d-fcff-439b-9b89-b97b76c0e512'
+
+
+Select PK_Event from protocol
+INNER JOIN EventGroup ON EventGroup.FK_Protocol = Protocol.PK_Protocol
+INNER JOIN Event ON Event.FK_EventGroup = EventGroup.PK_EventGroup
+INNER JOIN Site on Site.PK_Site = Event.FK_Site
+where PK_Protocol = '8514122d-fcff-439b-9b89-b97b76c0e512'
+
+--delete from event
+select* from event
+where PK_Event IN (
+Select DISTINCT PK_Event from protocol
+INNER JOIN EventGroup ON EventGroup.FK_Protocol = Protocol.PK_Protocol
+INNER JOIN Event ON Event.FK_EventGroup = EventGroup.PK_EventGroup
+INNER JOIN Site on Site.PK_Site = Event.FK_Site
+where PK_Protocol = '8514122d-fcff-439b-9b89-b97b76c0e512'
+)
+
+--delete from eventGroup
+select * from EventGroup
+where PK_EventGroup IN (
+Select DISTINCT PK_EventGroup from protocol
+INNER JOIN EventGroup ON EventGroup.FK_Protocol = Protocol.PK_Protocol
+INNER JOIN Event ON Event.FK_EventGroup = EventGroup.PK_EventGroup
+INNER JOIN Site on Site.PK_Site = Event.FK_Site
+where PK_Protocol = '8514122d-fcff-439b-9b89-b97b76c0e512'
+)
+
+
+
+select * from EventGroup
+--Delete from EventGroup
+where FK_Protocol = '8514122d-fcff-439b-9b89-b97b76c0e512'
+
+
+--delete from protocol
+select * from protocol
+where PK_Protocol =  '8514122d-fcff-439b-9b89-b97b76c0e512'
+
+
+Select * from Event
+Where PK_Event NOT IN(
+SELECT DISTINCT PK_Event from Protocol
+INNER JOIN EventGroup ON EventGroup.FK_Protocol = Protocol.PK_Protocol  
+INNER JOIN Event ON Event.FK_EventGroup = EventGroup.PK_EventGroup  
+INNER JOIN Site ON Site.PK_Site = Event.FK_Site 
+INNER JOIN SiteClassLink on SiteClassLink.FK_Site = Site.PK_Site
+INNER JOIN SiteClass on SiteClass.PK_SiteClass = SiteClassLink.FK_SiteClass)

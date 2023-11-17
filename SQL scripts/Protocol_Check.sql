@@ -48,3 +48,5 @@ Select ListItem, Description,List from typeList
 where List = 'PROTOCOL' OR List = 'SURVEY'
 order by ListItem
 
+select * from Event
+where PK_Event = X'4b32db966935664eb74459feba2d4127'
